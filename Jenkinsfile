@@ -6,13 +6,16 @@ pipeline {
         timeout(time: 20, unit: 'MINUTES')
     }
 
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-                sh 'git rev-parse --short HEAD'
-            }
-        }
+    stages
+          stage('Checkout') {
+    options {
+        retry(2)
+    }
+    steps {
+        checkout scm
+        sh 'git rev-parse --short HEAD'
+    }
+}
 
         stage('Django Validation') {
             steps {
