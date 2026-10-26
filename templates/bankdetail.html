@@ -1,0 +1,34 @@
+{% load static %} 
+{% include 'header.html' %}  
+
+<link rel="stylesheet" href="/static/css/productregister.css"> 
+<style> </style>  
+
+<body>      
+    
+    <div class="container">         
+        <h2>Register a Watch Product</h2>         
+        <form action="bankdetail" method="POST" enctype="multipart/form-data">             
+         
+            {% csrf_token %}                          
+
+            <label for="name">Account Holder Name</label>             
+            <input type="text"  name="holdername" required>              
+
+            <label for="brand">Account number</label>             
+            <input type="text"  name="accountno" required>        
+            
+            <label for="brand">IFSC code</label>             
+            <input type="text"  name="ifsc" required>      
+
+
+            <button type="submit">Register Product</button>              
+
+         
+        </form>     
+    </div>  
+
+</body> 
+</html>  
+
+{% include 'footer.html' %}

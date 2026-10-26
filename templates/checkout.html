@@ -1,0 +1,67 @@
+{% load static %}
+{% include 'header.html' %}
+
+<link rel="stylesheet" href="/static/css/checkout.css">
+
+<body>
+    <div class="container">
+        <h2>Checkout</h2>
+
+        <h3>Cart Items:</h3>
+        <div class="cart-items">
+            <ul>
+                {% for item in cart_items %}
+                    <li>{{ item.cartname }} ({{ item.cartbrand }}) - {{ item.quantity }} x ₹{{ item.cartprice }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="total-amount">
+            <h4>Total Amount: ₹{{ total_inr }}</h4>
+
+            {% if discount_amount > 0 %}
+                <h4>Discount Applied: ₹{{ discount_amount }}</h4>  
+            {% endif %}
+
+            <h4>Shipping Charge: ₹{{ shipping_charge }}</h4> 
+
+            <h4>Final Amount: ₹{{ final_inr }}</h4>  
+        </div>
+
+        <h3>Shipping Address:</h3>
+
+        {% if shipdata %}
+
+            <div class="shipping-info">
+                <h4>Your Shipping Address:</h4>
+                <p><strong>Address:</strong> {{ shipdata.address }}</p>
+                <p><strong>City:</strong> {{ shipdata.city }}</p>
+                <p><strong>Postal Code:</strong> {{ shipdata.postal_code }}</p>
+                <p><strong>Country:</strong> {{ shipdata.country }}</p>
+            </div>
+
+     
+            <form method="GET" action="{% url 'checkedit_shipping_address' %}">
+                <button type="submit" class="btn-secondary">Edit Shipping Address</button>
+            </form>
+
+            <form method="POST" action="/payment/">
+                {% csrf_token %}
+                <input type="hidden" name="final_inr" value="{{ final_inr }}">  
+                <button type="submit" class="btn-primary">Proceed to Payment</button>
+            </form>
+        {% else %}
+     
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn-primary">Add Shipping Address</button>
+            </form>
+   
+            <button type="button" class="btn-primary" disabled>Proceed to Payment</button>
+        {% endif %}
+    </div>
+</body>
+</html>
+
+{% include 'footer.html' %}

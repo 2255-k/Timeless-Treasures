@@ -1,0 +1,75 @@
+{% load static %}
+{% include 'header.html' %}
+
+<link rel="stylesheet" href="/static/css/productupdate.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Update Watch Product</h2>
+        <form method="POST" enctype="multipart/form-data" action="{% url 'productupdates' result.id %}">
+            {% csrf_token %}
+        
+            <label for="name">Watch Name:</label>
+            <input type="text" id="name" name="watchname" required value="{{ result.watchname }}">
+        
+            <label for="brand">Brand:</label>
+            <input type="text" id="brand" name="watchbrand" required value="{{ result.watchbrand }}">
+        
+            <label for="price">Price RS:</label>
+            <input type="number" id="price" name="watchprice" step="0.01" required value="{{ result.watchprice }}">
+        
+            <label for="stock_quantity">Stock Quantity:</label>
+            <input type="number" id="stock_quantity" name="stock_quantity" required value="{{ result.stock_quantity }}">
+        
+            <label for="description">Description:</label>
+            <textarea id="description" name="watchdescription" rows="4" required>{{ result.watchdescription }}</textarea>
+        
+            <label for="watchimage">Primary Image:</label>
+            <img src="/media/{{ result.watchimage }}" alt="Current Image" style="width:300px;height:300px;">
+            <input type="file" name="watchimage" placeholder="Primary Photo"> 
+            
+            <label for="additional_images">Additional Images:</label>
+            <button type="button" id="toggle-images-btn">Show Additional Images</button>
+
+            <div id="additional-images-container">
+                {% if result.additional_images.all %}
+                    {% for image in result.additional_images.all %}
+                        <div class="existing-image">
+                            <img src="/media/{{ image.image }}" alt="Additional Image">
+                            <p>Current Image</p>
+                            <a href="{% url 'delete_additional_image' result.id image.id %}" class="delete-image-btn">Delete Image</a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color: black;">No additional images added yet.</p>
+                {% endif %}
+            </div>
+
+            <input type="file" name="additional_images" multiple placeholder="Upload additional images">
+      
+            <button type="submit">Update Product</button>
+        </form>
+    </div>
+
+    <script>
+
+        document.getElementById('toggle-images-btn').addEventListener('click', function() {
+            var container = document.getElementById('additional-images-container');
+            var button = document.getElementById('toggle-images-btn');
+
+            if (container.style.display === 'none') {
+                container.style.display = 'block';
+                button.textContent = 'Hide Additional Images';
+            } else {
+                container.style.display = 'none';
+                button.textContent = 'Show Additional Images';
+            }
+        });
+    </script>
+
+</body>
+
+{% include 'footer.html' %}
+</html>

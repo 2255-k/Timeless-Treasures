@@ -1,0 +1,204 @@
+
+.mycartz-cart-container {
+    padding: 20px 50px;
+    background-color: #f8f9fa;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 100vh; 
+}
+
+
+.mycartz-go-back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #6c757d;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    display: inline-block;
+    width: auto;
+}
+
+.mycartz-go-back-btn:hover {
+    opacity: 0.9;
+}
+
+.mycartz-cart-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: #1f1f1f;
+    text-align: center;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+
+.mycartz-cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+}
+
+.mycartz-cart-item {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.mycartz-cart-item:hover {
+    box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.mycartz-cart-item-img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-right: 2px solid #ddd;
+    margin-right: 20px;
+}
+
+.mycartz-cart-item-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    margin-right: 20px; 
+}
+
+.mycartz-product-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.mycartz-product-brand,
+.mycartz-product-price,
+.mycartz-product-quantity {
+    color: #666;
+    font-size: 14px;
+}
+
+.mycartz-quantity-controls {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 12px; 
+    align-items: center; 
+}
+
+
+.mycartz-btn {
+    padding: 8px 18px;
+    font-size: 14px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    width: auto; 
+}
+
+.mycartz-btn:hover {
+    transform: scale(1.05);
+}
+
+.increase-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.decrease-btn {
+    background-color: #ffc107;
+    color: white;
+}
+
+.wholesale-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    font-size: 13px;
+}
+
+
+.mycartz-cart-summary {
+    margin-top: 40px;
+    text-align: center;
+    width: 100%;
+}
+
+.mycartz-total-amount,
+.mycartz-discount,
+.mycartz-final-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+}
+
+.mycartz-info-text {
+    font-size: 14px;
+    color: #17a2b8;
+}
+
+.mycartz-checkout-btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+    width: 100%;
+}
+
+.checkout-btn {
+    background-color: #28a745;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.continue-shopping-btn {
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+}
+
+.mycartz-empty-cart {
+    text-align: center;
+    width: 100%;
+}
+
+.mycartz-empty-cart h3 {
+    font-size: 24px;
+    color: #333;
+}
+
+.mycartz-empty-cart p {
+    color: #666;
+}
+
+
+.mycartz-btn:hover {
+    opacity: 0.9;
+}

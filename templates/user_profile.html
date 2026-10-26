@@ -1,0 +1,80 @@
+{% load static %}
+{% include 'header.html' %}
+<link rel="stylesheet" href="/static/css/userprofile.css">
+
+<div class="bodi">
+    <div class="profile-container">
+        <h1>Welcome, {{ result.username }}</h1>
+
+        <div class="profile-info">
+            <p><strong>Email:</strong> {{ result.useremail }}</p>
+            <p><strong>Phone:</strong> {{ result.userphone }}</p>
+        </div>
+
+        <div class="action-buttons">
+            <div>
+                <a href="{% url 'userupdate' id=result.id %}" style="text-decoration: none;">
+                    <input type="button" value="Edit Profile Info" class="address-button">
+                </a>
+            </div>
+        </div>
+
+        {% if bankdata %}
+        <h3>Bank Details</h3>
+        <div class="bank-details">
+            <p><strong>Holder Name:</strong> {{ bankdata.holdername }}</p>
+            <p><strong>Account Number:</strong> **** **** **** {{ bankdata.accountno|slice:"-4:" }}</p>
+            <p><strong>IFSC Code:</strong> {{ bankdata.ifsc }}</p>
+        </div>
+        {% endif %}
+
+        <h3>Shipping Information</h3>
+        
+        {% if shipdata %}
+        <div class="address-section">
+            <p><strong>Street Address:</strong> {{ shipdata.address }}</p>
+            <p><strong>City:</strong> {{ shipdata.city }}</p>
+            <p><strong>Postal Code:</strong> {{ shipdata.postal_code }}</p>
+            <p><strong>Country:</strong> {{ shipdata.country }}</p>
+        </div>
+
+        <div class="action-buttons">
+            <div>
+                <a href="{% url 'edit_shipping_address' %}" style="text-decoration: none;">
+                    <input type="button" value="Edit Shipping Address" class="address-button">
+                </a>
+            </div>
+        </div>
+
+        {% else %}
+        <p class="no-address">No shipping address found. Please add one.</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="address-button">Add Shipping Address</button>
+        </form>
+        {% endif %}
+
+        <div class="order-summary-button">
+            <a href="{% url 'user_products' %}">
+                <input type="button" value="Your products" class="address-button">
+            </a>
+            <a href="{% url 'order_summary' %}">
+                <input type="button" value="View Order Summary" class="address-button">
+            </a>
+            <a href="{% url 'track_order' %}">
+                <input type="button" value="Track Your Order" class="address-button">
+            </a>
+        </div>
+
+        <div class="action-buttons">
+            <div style="text-decoration: none;">
+                <a href="{% url 'userprofiledelete' %}" style="text-decoration: none;">
+                    <input type="button" value="Delete profile" class="udelete" onclick="return confirm('Are you sure you want to delete your profile?');">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'footer.html' %}

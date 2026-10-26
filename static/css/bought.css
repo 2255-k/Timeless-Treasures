@@ -1,0 +1,124 @@
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 30px 0;
+}
+h1{
+  font-size: 3rem;
+  font-weight: bold;
+  color: #b57f2f;
+  font-family: 'Cinzel', serif;
+  text-align: center;
+  letter-spacing: 3px;
+}
+
+header h1, footer p {
+  margin: 0;
+}
+
+.product-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.product-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-item:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Product Image */
+.product-image img {
+  max-height: 250px;
+  width: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+/* Product Details */
+.product-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.product-name {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.buyer-name, .product-price, .product-quantity, .order-date, .shipping-address {
+  font-size: 1.1em;
+  margin: 5px 0;
+  color: #555;
+}
+
+.shipping-address-title {
+  font-weight: bold;
+  margin-top: 10px;
+  color: #333;
+}
+
+.admin-message, .admin-message-success, .admin-paid-message-success {
+  font-style: italic;
+  color: #333;
+  margin-top: 10px;
+}
+
+.admin-message {
+  color: #555;
+}
+
+.admin-message-success {
+  color: green;
+}
+
+.admin-paid-message-success {
+  color: blue;
+}
+
+
+.no-products-message {
+  font-size: 1.2em;
+  color: #999;
+  text-align: center;
+  margin-top: 30px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}

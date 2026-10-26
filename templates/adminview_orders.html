@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/allproducts.css">
+    <title>All Orders</title>
+    <style>
+ 
+    </style>
+</head>
+<body>
+    <h1>All Orders</h1>
+
+    <ul class="orders-list">
+        {% for details in order_details %}
+            <li class="order-item">
+                <h2>Order ID: {{ details.order.id }}</h2>
+                <p><strong>Status:</strong> {{ details.order.status }}</p>
+                <p><strong>Order Date:</strong> {{ details.order.order_date }}</p>
+                <p><strong>Total Price:</strong> ₹{{ details.order.total_price }}</p>
+
+                <!-- Show discount if the total quantity is greater than 7 -->
+                {% if details.total_quantity > 7 %}
+                    <p><strong>Discount Applied:</strong> ₹{{ details.discount_amount }}</p>
+                    <p><strong>Final Price after Discount:</strong> ₹{{ details.final_price }}</p>
+                {% endif %}
+
+                <h3>Shipping Address</h3>
+                {% if details.shipping_address %}
+                    <p>{{ details.shipping_address.address }}, {{ details.shipping_address.city }},
+                    {{ details.shipping_address.postal_code }}, {{ details.shipping_address.country }}</p>
+                {% else %}
+                    <p>No shipping address available</p>
+                {% endif %}
+
+                <h3>Payment Details</h3>
+                {% if details.payment %}
+                    <p>Paid: ₹{{ details.payment.amount }}</p>
+                    <p>Order ID: {{ details.payment.razorpay_order_id }}</p>
+                    <p>Payment ID: {{ details.payment.razorpay_payment_id }}</p>
+                {% else %}
+                    <p>No payment details available</p>
+                {% endif %}
+
+                <h3>Order Items</h3>
+                <ul>
+                    {% for item in details.order_items %}
+                        <li>
+                            <strong>Product Name: {{ item.product_name }}</strong> <br>
+                            Quantity: {{ item.quantity }} <br>
+                            Seller: 
+                            {% if item.seller_name != 'User not found' %}
+                                <span class="seller">{{ item.seller_name }}</span> 
+                                {% if item.seller_name != 'Admin' %}
+                                    (Phone: {{ item.seller_phone }}, Email: {{ item.seller_email }})
+                                {% endif %}
+                            {% else %}
+                                No seller details available
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</body>  
+</html>

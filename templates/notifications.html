@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="/static/css/notifi.css">
+
+<button class="home-btn" onclick="window.location.href='/'">X</button>
+
+<div class="container">
+    
+    <h1>Notifications</h1>
+    {% if notifications %}
+        <ul class="notifications-list">
+            {% for notification in notifications %}
+                <li class="notification {% if not notification.is_read %}unread{% endif %}">
+                    <div class="notification-content">
+                        <p>{{ notification.message }}</p>
+                        <span class="notification-date">{{ notification.date }}</span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No notifications available.</p>
+    {% endif %}
+</div>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link rel="stylesheet" href="/static/css/vieworder.css"> 
+</head>
+<body>
+    <header>
+        <h1>Order Confirmation</h1>
+    </header>
+
+    <div class="order-summary">
+        {% if order %}
+            <h2>Order Details</h2>
+            
+            {% for item in order.order_items %}
+                <div class="order-item">
+                    <h3>{{ item.product_name }}</h3>
+                    {% if item.product_image %}
+                        <img src="{{ item.product_image }}" alt="{{ item.product_name }}" width="100">
+                    {% else %}
+                        <p>No image available</p>
+                    {% endif %}
+                    <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+                    <p><strong> Amount:</strong> ₹{{ item.total_amount }}</p>
+                </div>
+            {% endfor %}
+            
+            <p><strong>Order ID:</strong> {{ order.order_id }}</p>
+
+            <!-- Display Discount if available -->
+            {% if order.discount_amount %}
+                <p><strong>Discount:</strong> ₹{{ order.discount_amount }}</p>
+            {% endif %}
+
+            <!-- Display Shipping Charge -->
+            <p><strong>Shipping Charge:</strong> ₹{{ order.shipping_charge }}</p>
+
+            <!-- Display Final Amount -->
+            <p><strong>Final Amount:</strong> ₹{{ order.final_amount }}</p>
+
+            <p><strong>Payment ID:</strong> {{ order.razorpay_payment_id }}</p>
+            <p><strong>Amount Paid:</strong> ₹{{ order.payment_amount }}</p>
+            <p><strong>Razorpay Order ID:</strong> {{ order.razorpay_order_id }}</p>
+            <p><strong>Payment Status:</strong> {{ order.payment_status }}</p>
+
+            <h2>Your Shipping Address</h2>
+            {% if order.shipping_address %}
+                <p><strong>Address:</strong> {{ order.shipping_address.address }}</p>
+                <p><strong>City:</strong> {{ order.shipping_address.city }}</p>
+                <p><strong>Postal Code:</strong> {{ order.shipping_address.postal_code }}</p>
+                <p><strong>Country:</strong> {{ order.shipping_address.country }}</p>
+            {% else %}
+                <p>No shipping address found.</p>
+            {% endif %}
+
+            <p class="delivery-message">Thank you for Purchasing. Your product will be dispatch soon</p>
+            
+            <div class="button-container">
+                <a href="{% url 'index' %}" class="home-button">Go to Home</a>
+                <a href="{% url 'order_summary' %}" class="home-button">View Orders</a>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

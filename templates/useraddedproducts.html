@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/adminallproducts.css">
+    <title>All Products</title>
+
+</head>
+<body>
+    <h1>All Products</h1>
+
+    {% if product_details %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Product Image</th>
+                    <th>Seller Name</th>
+                    <th>Seller Phone</th>
+                    <th>Seller Email</th>
+                    <th>Added By</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in product_details %}
+                    <tr>
+                        <td>{{ product.product_name }}</td>
+                        <td>
+                            {% if product.product_image %}
+                                <img src="{{ product.product_image }}" alt="{{ product.product_name }}">
+                            {% else %}
+                                No Image
+                            {% endif %}
+                        </td>
+                        <td>{{ product.seller_name }}</td>
+                        <td>{{ product.seller_phone }}</td>
+                        <td>{{ product.seller_email }}</td>
+                        <td>
+                            {% if product.seller_name == "Admin" %}
+                                Admin
+                            {% else %}
+                                {{ product.seller_name }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No products found.</p>
+    {% endif %}
+</body>
+</html>

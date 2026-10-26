@@ -1,0 +1,60 @@
+{% load static %}
+{% include 'header.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/userregister.css">
+    <title>User Registration</title>
+    <style>
+      
+    </style>
+</head>
+<body>
+    
+    <div class="form-container">
+        <form class="form" method="POST" action="userupdates/{{result.id}}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <input type="text" name="username" placeholder="Name" required   value="{{result.username}}">
+                    </div>
+                </div>
+
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <input type="text" name="userphone" placeholder="Phone"   value="{{result.userphone}}">
+                    </div>
+                </div>
+
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <input type="email" name="useremail" placeholder="Email" required value="{{result.useremail}}">
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <input type="password" name="userpassword" placeholder="Password" required value="{{result.userpassword}}">
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-group login-btn">
+                        <button class="btn" type="submit">Update</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% include 'footer.html' %}
+
+</body>
+</html>
+

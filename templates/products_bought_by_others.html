@@ -1,0 +1,54 @@
+{% load static %}
+{% include 'header.html' %}
+<link rel="stylesheet" href="/static/css/bought.css">
+
+<header>
+  
+</header>
+<div class="container">
+  <div style="padding-top: 100px;padding-bottom: 70px;">
+    <h1> Products Bought by Others</h1>
+
+    {% if bought_by_others %}
+      <ul class="product-list">
+        {% for item in bought_by_others %}
+          <li class="product-item">
+
+            <div class="product-image">
+              <img src="{{ item.product_image }}" alt="{{ item.product_name }}" style="max-height: 300px; object-fit: cover;">
+            </div>
+
+            <div class="product-details">
+              <h3 class="product-name">Product Name: {{ item.product_name }}</h3>
+              <p class="buyer-name"><strong>Bought By:</strong> {{ item.buyer_name }}</p>
+              <p class="product-price"><strong>Price:</strong> ₹{{ item.total_price }}</p>
+              <p class="product-quantity"><strong>Quantity:</strong> {{ item.quantity }}</p>
+              <p class="order-date"><strong>Order Date:</strong> {{ item.order_date }}</p>
+
+              <h5 class="shipping-address-title">Shipping Address:</h5>
+              <p class="shipping-address">{{ item.shipping_address }}</p>
+
+              <p class="admin-message">
+                <br>
+                After the product is delivered, the admin will deduct a commission of RS 250 and pay you the remaining amount through a bank transfer.
+              </p>
+
+              {% if item.admin_message %}
+                <p class="admin-message-success"><strong>{{ item.admin_message }}</strong></p>
+              {% endif %}
+
+              {% if item.admin_paid_message %}
+                <p class="admin-paid-message-success"><strong>{{ item.admin_paid_message }}</strong></p>
+              {% endif %}
+
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No products bought by others yet.</p>
+    {% endif %}
+  </div>
+</div>
+
+{% include 'footer.html' %}

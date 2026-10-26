@@ -1,0 +1,47 @@
+{% load static %}
+{% include 'header.html' %}
+
+<style>
+    nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: transparent;
+    z-index: 1000;
+    padding: 20px 0;  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+}
+        
+ </style>
+<div class="service-section-container">
+    <h1 class="service-heading text-center">Our Services</h1>
+  
+    <div class="service-cards-container">
+
+        <div class="service-card">
+            <h2 class="service-title">Buy Antique Watches</h2>
+            <p class="service-description">Explore a wide collection of antique watches from various prestigious brands. Our experts hand-pick the finest timepieces for collectors and connoisseurs. Whether you are a watch enthusiast or a first-time buyer, our collection caters to all tastes.</p>
+            <a href="{% url 'product_view' %}" class="service-btn">Shop Now</a>
+        </div>
+  
+        <div class="service-card">
+          <h2 class="service-title">Sell Your Antique Watches</h2>
+          <p class="service-description">Looking to sell your antique watches? Get in touch with our team, and we’ll offer you a competitive price for your valuable timepieces. We make the process quick and easy to help you get the best value for your collection.</p>
+          {% if request.session.uid %}
+              <a href="{% url 'product_register' %}" class="service-btn">Sell Now</a>
+          {% else %}
+              <a href="{% url 'user_login' %}" class="service-btn">Login to Sell</a>
+          {% endif %}
+      </div>
+
+        <div class="service-card">
+            <h2 class="service-title">Wholesale Buy 7 Watches</h2>
+            <p class="service-description">If you're a retailer or collector interested in bulk purchases, we offer wholesale deals. Purchase 7 or more watches at a discounted rate and grow your collection or business.</p>
+            <a href="{% url 'product_view' %}" class="service-btn">Wholesale Purchase</a>
+        </div>
+    </div>
+  </div>
+  
+
+{% include 'footer.html' %}

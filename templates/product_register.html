@@ -1,0 +1,47 @@
+{% load static %} 
+{% include 'header.html' %}  
+<link rel="stylesheet" href="/static/css/productregister.css"> 
+<style> </style>  
+
+<body>       
+    <div class="container">         
+        <h2>Register a Watch Product</h2>         
+        <form action="product_register" method="POST" enctype="multipart/form-data">                          
+            {% csrf_token %}                          
+
+            <label for="name">Watch Name:</label>             
+            <input type="text" id="name" name="watchname" required>              
+
+            <label for="brand">Brand:</label>             
+            <input type="text" id="brand" name="watchbrand" required>              
+
+            <label for="price">Price RS:</label>             
+            <input type="number" id="price" name="watchprice" step="0.01" required>              
+
+            <label for="stock_quantity">Stock Quantity:</label>             
+            <input type="number" id="stock_quantity" name="stock_quantity" required>              
+
+            <label for="description">Description:</label>             
+            <textarea id="description" name="watchdescription" rows="4" required></textarea>              
+
+            <label for="image">Upload Watch Image:</label>             
+            <input type="file" id="image" name="watchimage" accept="image/*" required>    
+
+            <label for="additional_images">Upload Additional Images:</label>
+            <input type="file" id="additional_images" name="additional_images" accept="image/*" multiple>  
+            
+            {% if request.session.uid %}
+            <div>
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the <a href="/terms-and-conditions">terms and conditions</a></label>
+            </div>
+            {% endif %}
+
+            <button type="submit">Register Product</button>              
+        </form>     
+    </div>  
+
+</body> 
+</html>  
+
+{% include 'footer.html' %}

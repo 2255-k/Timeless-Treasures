@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/order.css">
+    <title>Your Orders</title>
+
+</head>
+<body>
+    <!-- Go Back Button -->
+    <a href="javascript:history.back()" class="go-back-button">Go Back</a>
+
+    <div class="track-order-container">
+        <h2>Your Orders</h2>
+
+        {% if error_message %}
+            <p class="error">{{ error_message }}</p>
+        {% endif %}
+
+        {% if not orders_with_items %}
+            <p>You have not placed any orders yet.</p>
+        {% endif %}
+
+        {% for order_data in orders_with_items %}
+        <div class="order-card">
+            <h3>Order Status: #{{ order_data.order.id }}</h3>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: {% if order_data.order.status == 'ORDER_PLACED' %}14%{% elif order_data.order.status == 'PROCESSING_ORDER' %}28%{% elif order_data.order.status == 'QUALITY_CHECK' %}42%{% elif order_data.order.status == 'DISPATCHED' %}57%{% elif order_data.order.status == 'SHIPPED' %}71%{% elif order_data.order.status == 'OUT_FOR_DELIVERY' %}85%{% elif order_data.order.status == 'DELIVERED' %}100%{% endif %};"></div>
+            </div>
+
+            <div class="progress-steps">
+                <!-- Order Placed -->
+                <div class="step {% if order_data.order.status == 'ORDER_PLACED' or order_data.order.status == 'PROCESSING_ORDER' or order_data.order.status == 'QUALITY_CHECK' or order_data.order.status == 'DISPATCHED' or order_data.order.status == 'SHIPPED' or order_data.order.status == 'OUT_FOR_DELIVERY' or order_data.order.status == 'DELIVERED' %}active{% endif %}">
+                    <span>Order Placed</span>
+                    {% if order_data.order.status == 'ORDER_PLACED' or order_data.order.status == 'PROCESSING_ORDER' or order_data.order.status == 'QUALITY_CHECK' or order_data.order.status == 'DISPATCHED' or order_data.order.status == 'SHIPPED' or order_data.order.status == 'OUT_FOR_DELIVERY' or order_data.order.status == 'DELIVERED' %}
+                        <span class="tick">✓</span>
+                    {% endif %}
+                </div>
+
+                <!-- Processing Order -->
+                <div class="step {% if order_data.order.status == 'PROCESSING_ORDER' or order_data.order.status == 'QUALITY_CHECK' or order_data.order.status == 'DISPATCHED' or order_data.order.status == 'SHIPPED' or order_data.order.status == 'OUT_FOR_DELIVERY' or order_data.order.status == 'DELIVERED' %}active{% endif %}">
+                    <span>Processing Order</span>
+                    {% if order_data.order.status == 'PROCESSING_ORDER' or order_data.order.status == 'QUALITY_CHECK' or order_data.order.status == 'DISPATCHED' or order_data.order.status == 'SHIPPED' or order_data.order.status == 'OUT_FOR_DELIVERY' or order_data.order.status == 'DELIVERED' %}
+                        <span class="tick">✓</span>
+                    {% endif %}
+                </div>
+
+                <!-- Quality Check -->
+                <div class="step {% if order_data.order.status == 'QUALITY_CHECK' or order_data.order.status == 'DISPATCHED' or order_data.order.status == 'SHIPPED' or order_data.order.status == 'OUT_FOR_DELIVERY' or order_data.order.status == 'DELIVERED' %}active{% endif %}">
+                    <span>Quality Check</span>
+                    {% if order_data.order.status == 'QUALITY_CHECK' or order_data.order.status == 'DISPATCHED' or order_data.order.status == 'SHIPPED' or order_data.order.status == 'OUT_FOR_DELIVERY' or order_data.order.status == 'DELIVERED' %}
+                        <span class="tick">✓</span>
+                    {% endif %}
+                </div>
+
+                <!-- Dispatched -->
+                <div class="step {% if order_data.order.status == 'DISPATCHED' or order_data.order.status == 'SHIPPED' or order_data.order.status == 'OUT_FOR_DELIVERY' or order_data.order.status == 'DELIVERED' %}active{% endif %}">
+                    <span>Dispatched</span>
+                    {% if order_data.order.status == 'DISPATCHED' or order_data.order.status == 'SHIPPED' or order_data.order.status == 'OUT_FOR_DELIVERY' or order_data.order.status == 'DELIVERED' %}
+                        <span class="tick">✓</span>
+                    {% endif %}
+                </div>
+
+                <!-- Shipped -->
+                <div class="step {% if order_data.order.status == 'SHIPPED' or order_data.order.status == 'OUT_FOR_DELIVERY' or order_data.order.status == 'DELIVERED' %}active{% endif %}">
+                    <span>Shipped</span>
+                    {% if order_data.order.status == 'SHIPPED' or order_data.order.status == 'OUT_FOR_DELIVERY' or order_data.order.status == 'DELIVERED' %}
+                        <span class="tick">✓</span>
+                    {% endif %}
+                </div>
+
+                <!-- Out for Delivery -->
+                <div class="step {% if order_data.order.status == 'OUT_FOR_DELIVERY' or order_data.order.status == 'DELIVERED' %}active{% endif %}">
+                    <span>Out for Delivery</span>
+                    {% if order_data.order.status == 'OUT_FOR_DELIVERY' or order_data.order.status == 'DELIVERED' %}
+                        <span class="tick">✓</span>
+                    {% endif %}
+                </div>
+
+                <!-- Delivered -->
+                <div class="step {% if order_data.order.status == 'DELIVERED' %}active{% endif %}">
+                    <span>Delivered</span>
+                    {% if order_data.order.status == 'DELIVERED' %}
+                        <span class="tick">✓</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Order Details -->
+            <div class="order-summary">
+                <p><strong>Order ID:</strong> {{ order_data.order.id }}</p>
+                <p><strong>Status:</strong> {{ order_data.order.get_status_display }}</p>
+                <p><strong>Order Date:</strong> {{ order_data.order.order_date }}</p>
+                <p><strong>Total Price:</strong> ₹{{ order_data.order.total_price }}</p>
+                
+                {% if order_data.order_items %}
+                    <h4>Order Items</h4>
+                    <ul>
+                        {% for item in order_data.order_items %}
+                            <li>{{ item.product_name }} (Brand: {{ item.product_brand }}) - Quantity: {{ item.product_quantity }} - ₹{{ item.total_amount }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No items found for this order.</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

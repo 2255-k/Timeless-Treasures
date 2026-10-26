@@ -1,0 +1,313 @@
+{% load static %}
+{% include 'header.html' %}
+
+<!-- home start-->
+<section class="box" id="home">  
+    <video src="{% static 'img/watch intro_prob3.mp4' %}" autoplay muted loop></video>
+    <h1>Timeless treasures</h1> 
+    <h3>Buy or Sell your rare watches</h3>
+
+    <!-- Search Form -->
+    <div class="search-home">
+        <form method="GET" action="{% url 'product_view' %}">
+            <input type="text" name="search" value="{{ search_query }}" placeholder="Search watches..." class="search-input">
+            <button type="submit" class="search-btn">Search</button>
+        </form>
+    </div>
+
+    <div class="btn1st">
+        <a href="{% url 'product_view' %}" class="boxBtn">Explore watches</a>   
+    </div>
+</section> 
+<!-- home end-->
+
+<!-- Products start -->
+ 
+<div class="container">
+  <h1 class="text-center">Featured watches</h1>
+  <br>
+  <div class="row justify-content-center">
+      {% for i in productdata|slice:":8" %}
+      <div class="col-md-4 d-flex justify-content-center mb-4">
+          <a href="{% url 'product_detail' product_id=i.id %}" class="sup-all-link">
+              <div class="sup-all">
+                  <img src="../media/{{ i.watchimage }}" alt="No Image" class="sup-all-img">
+                  <div class="sup-all-body">
+                      <h3 class="sup-all-title">{{ i.watchname }}</h3>
+                      <h5 class="sup-all-brand"></h5>
+                      <h5 class="sup-all-price"> RS:{{ i.watchprice }}</h5>
+                      
+
+                      {% if request.session.admin %}
+                      <div style="display: flex;">
+                          <div>
+                              <a href="{% url 'productdelete' id=i.id %}">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                  </svg>
+                              </a>
+                          </div>
+                          <div>
+                              <a href="{% url 'productupdate' id=i.id %}">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                  </svg>
+                              </a>
+                          </div>
+                      </div>
+                      {% endif %}
+
+                      {% if i.stock_quantity > 0 %}
+                      <form action="{% url 'add_to_cart' %}" method="POST" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          <input type="hidden" name="cartimage" value="{{ i.watchimage }}">
+                          <input type="hidden" name="cartname" value="{{ i.watchname }}">
+                          <input type="hidden" name="cartbrand" value="{{ i.watchbrand }}">
+                          <input type="hidden" name="cartprice" value="{{ i.watchprice }}">
+                          <input type="hidden" name="cartdescription" value="{{ i.watchdescription }}">
+                          <input type="submit" class="sup-all-btn" value="Add to Cart">
+                      </form>
+                      {% else %}
+                      <button class="sup-all-btn" disabled>Out of Stock</button>
+                      {% endif %}
+                  </div>
+              </div>
+          </a>
+      </div>
+      
+      {% endfor %}
+      
+  </div>
+  
+</div>
+<div>
+
+
+
+  <div style="align-items: center;text-align: center;">
+    <a href="{% url 'product_view' %}" class="buybt">Buy More</a>
+    </div>
+    
+
+  <!-- Products end -->
+
+    <!-- services start -->
+
+            <div class="service-section-container">
+              <h1 class="service-heading text-center">Our Services</h1>       
+              <div class="service-cards-container">
+                  <div class="service-card">
+                      <h2 class="service-title">Buy Antique Watches</h2>
+                      <p class="service-description">Explore a wide collection of antique watches from various prestigious brands. Our experts hand-pick the finest timepieces for collectors and connoisseurs. Whether you are a watch enthusiast or a first-time buyer, our collection caters to all tastes.</p>
+                      <a href="{% url 'product_view' %}" class="service-btn">Shop Now</a>
+                  </div>
+                  <div class="service-card">
+                    <h2 class="service-title">Sell Your Antique Watches</h2>
+                    <p class="service-description">Looking to sell your antique watches? Get in touch with our team, and we’ll offer you a competitive price for your valuable timepieces. We make the process quick and easy to help you get the best value for your collection.</p>
+                    {% if request.session.uid %}
+                        <a href="{% url 'product_register' %}" class="service-btn">Sell Now</a>
+                    {% else %}
+                        <a href="{% url 'user_login' %}" class="service-btn">Login to Sell</a>
+                    {% endif %}
+                </div>
+                  <div class="service-card">
+                      <h2 class="service-title">Wholesale Buy 7 Watches</h2>
+                      <p class="service-description">If you're a retailer or collector interested in bulk purchases, we offer wholesale deals. Purchase 7 or more watches at a discounted rate and grow your collection or business.</p>
+                      <a href="{% url 'product_view' %}" class="service-btn">Wholesale Purchase</a>
+                  </div>
+              </div>
+            </div>
+            
+
+
+    <!-- services end -->
+
+    <!-- watches start -->
+    <div class="cards" id="watches">  
+        <div class="cardz" style="background-image: url(../static/img/videoframe_3271.png);">
+              <div class="overlay">
+                  <h3 style="color: white;">IWC Ingenieur SL Two Tone Papergraph 1986</h3><br>
+                   <!-- <div><button class="morebtn" href="#">Add to cart</button></div><br> -->
+              </div>
+          </div>
+          <div class="cardz" style="background-image: url(../static/img/videoframe_1743.png);">   
+              <div class="overlay">
+                  <h3 style="color: white;">Omega Cosmic Moonphase Jumbo 1947</h3>
+                  <!-- <div><button class="morebtn" href="#">Add to cart</button></div><br>                    -->
+              </div>
+          </div>
+          <div class="cardz" style="background-image: url(../static/img/videoframe_2140.png);">
+              <div class="overlay">
+                  <h3 style="color: white;">Vacheron Constantin 18k Jumbo Guilloché 1940s</h3>
+                  <!-- <div><button class="morebtn" href="#">Add to cart</button></div><br> -->
+              </div>
+          </div>
+          <div class="cardz" style="background-image: url(../static/img/videoframe_3013.png);">
+              <div class="overlay">
+                <h3 style="color: white;">Patek Philippe Calatrava 18k Teardrop 1944</h3>
+                  <!-- <div><button class="morebtn" href="#">Add to cart</button></div><br> -->
+              </div>
+          </div>
+          <div class="cardz" style="background-image: url(../static/img/videoframe_3778.png);">
+              <div class="overlay">
+                <h3 style="color: white;">IWC Sector Cal. 83 Gold edition Arabic 1941</h3>
+                  <!-- <div><button class="morebtn" href="#">Add to cart</button></div><br> -->
+              </div>
+          </div>
+          <div class="cardz" style="background-image: url(../static/img/videoframe_3879.png);">
+              <div class="overlay">
+                <h3 style="color: white;">Patek Philippe 18k Disco Volante 1950s</h3>
+                  <!-- <div><button class="morebtn" href="#">Add to cart</button></div><br> -->
+              </div>
+          </div>
+          <div class="cardz" style="background-image: url(../static/img/videoframe_4202.png)">
+            
+              <div class="overlay">
+                <h3 style="color: white;">Audemars Piguet Calatrava 18k 1970s</h3>
+                  <!-- <div><button class="morebtn" href="#">Add to cart</button></div><br> -->
+              </div>
+          </div>
+          <div class="cardz" style="background-image: url(../static/img/videoframe_3331.png);">
+            
+              <div class="overlay">
+                <h3 style="color: white;">Cartier Santos Carrée 18k gold 1980s</h3>
+                  <!-- <div><button class="morebtn" href="#">Add to cart</button></div><br> -->
+              </div>
+          </div>
+          <h1 class="heading"><span style="  font-weight: bold;
+            color: black;
+            font-family: 'Cinzel', serif;">OUR BEST WATCHES</span><br><input type="button" value="Buy now" class="explorebtn"> </h1>
+      </div>
+  
+      <!-- watches end -->
+
+
+
+          <!-- about start -->
+
+     
+          <div class="main-services" style="padding-top: 100px;" id="about" >
+            <div class="content-wrapper">
+              <div class="service-item" >
+                <img src="https://png.pngtree.com/png-vector/20240729/ourmid/pngtree-intricate-vintage-watch-png-image_13287418.png" class="service-img" alt="Luxury watch image">
+                <div class="service-details">
+                  <h3 class="service-heading">Purchase Watches</h3>
+                  <p class="service-description">Explore our exclusive collection of luxury watches suitable for every collector. Choose from top-tier brands that represent the epitome of craftsmanship.</p>
+                </div>
+              </div>
+          
+              <div class="service-item">
+                <img src="https://i.pinimg.com/originals/af/de/94/afde9404382765c5f4bd31100d457b40.png" class="service-img" alt="Wristwatch for sale">
+                <div class="service-details">
+                  <h3 class="service-heading">Sell Your Watches</h3>
+                  <p class="service-description">Want to sell your luxury watches? Get the best value from our expert team. We offer competitive prices for your valuable timepieces.</p>
+                </div>
+              </div>
+          
+              <div class="service-item">
+                <img src="https://png.pngtree.com/png-vector/20240207/ourmid/pngtree-quartz-watch-ref-art-deco-style-wrist-png-image_11671169.png" class="service-img" alt="Art deco quartz watch">
+                <div class="service-details">
+                  <h3 class="service-heading">Wholesale Purchase</h3>
+                  <p class="service-description">Buy watches in bulk at discounted prices for resellers or collectors. We provide competitive wholesale pricing on a variety of premium watches.</p>
+                </div>
+              </div>
+          
+              <div class="service-item">
+                <img src="https://png.pngtree.com/png-vector/20240207/ourmid/pngtree-men-fashion-business-roman-numerals-sports-clock-faux-leather-quartz-wrist-png-image_11671066.png" class="service-img" alt="Sports wristwatch">
+                <div class="service-details">
+                  <h3 class="service-heading">Antique Watches</h3>
+                  <p class="service-description">Discover rare antique watches that are restored to their original glory. A true collector’s item, our selection of vintage watches tells a story of history and craftsmanship.</p>
+                </div>
+              </div>
+          
+              <div class="service-item">
+                <img src="https://d1myhw8pp24x4f.cloudfront.net/software_logo/1545304847_rzp-glyph-positive.png" class="service-img" alt="Sports wristwatch">
+                <div class="service-details">
+                  <h3 class="service-heading">Secure Transactions</h3>
+                  <p class="service-description">All your purchases and sales are guaranteed to be secure with us. We prioritize safe transactions to protect both buyers and sellers.</p>
+                </div>
+              </div>
+          
+              <div class="service-item">
+                <img src="https://i.pinimg.com/originals/58/e2/d4/58e2d44619c70fd0539d96d28bad38d0.png" class="service-img" alt="Sports wristwatch">
+                <div class="service-details">
+                  <h3 class="service-heading">Golden Era</h3>
+                  <p class="service-description">The golden era of watches is here. Explore vintage timepieces from the 19th and 20th centuries, each a masterpiece of mechanical craftsmanship.</p>
+                  <a href="/antique-watch-history" class="buybt">Read More</a> <!-- Added Read More button -->
+                </div>
+              </div>
+            </div>
+          </div>
+          
+    <!-- about end  -->
+
+
+ <!-- gallery start -->
+
+<div class="container" id="gallery">
+  <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+          <div class="carousel-item active">
+              <img src="{% static 'img/slider1.png' %}" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+              <img src="{% static 'img/slider2.png' %}" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+              <img src="{% static 'img/SLIDER 3.png' %}" class="d-block w-100" alt="...">
+          </div>
+      </div>
+  </div>
+</div>
+
+    <!-- gallery end -->
+
+<!-- contact start -->
+<div class="container" id="contact" style="padding-top: 100px;">
+  <div>
+      <h2 style="text-align: center;  font-weight: bold;
+      color: #b57f2f;
+      font-family: 'Cinzel', serif;">Contact Us</h2>
+  </div>
+  
+  <div class="contact-section">
+      <div class="contact-form">
+        <form action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="b6032bf3-e836-43d1-a873-600a084c1da1">
+          <div>
+              <div class="col-12 col-md-4 mb-4">
+                  <label for="name" class="form-label">Full Name</label>
+                  <input type="text" id="name" name="full_name" class="form-control" placeholder="Enter your name" required>
+              </div>
+              <div class="col-12 col-md-4 mb-4">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+              </div>
+              <div class="col-12 col-md-4 mb-4">
+                  <label for="message" class="form-label">Message</label>
+                  <textarea id="message" name="message" class="form-control" rows="4" placeholder="Your message" required></textarea>
+              </div>
+              <div class="col-12">
+                  <button type="submit" class="btn w-100" style="background-color: goldenrod">Send Message</button>
+              </div>
+          </div>
+          </form>
+      </div>
+      <div class="map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.874821987296!2d76.30582827503154!3d10.027187290079635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080dafbed183bf%3A0x5951f316ba13a37e!2sLuLu%20International%20Shopping%20Mall!5e0!3m2!1sen!2sin!4v1738317216130!5m2!1sen!2sin" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"> </iframe>
+      </div>
+  </div>
+</div>
+<!-- contact end -->
+ 
+
+
+{% include 'footer.html' %}
+
+
+
+
+
+

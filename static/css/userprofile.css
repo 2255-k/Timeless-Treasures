@@ -1,0 +1,235 @@
+.bodi {
+    font-family: 'Georgia', serif; 
+    background-color: transparent;  
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    min-height: 100vh;     
+    flex-direction: column; 
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: transparent;
+    z-index: 1000;
+    padding: 20px 0;  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+nav .navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;  
+}
+
+.profile-container {
+    width: 90%;
+    max-width: 900px;  
+    margin-top: 120px;  
+    padding: 40px; 
+    background-color: #fff;
+    border-radius: 12px; 
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);  
+    border: 1px solid #e0e0e0;  
+}
+
+h1 {
+    font-size: 2.8rem; 
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-family: 'Georgia', serif;
+}
+
+.profile-info {
+    font-size: 1.2rem; 
+    color: #555;
+    margin-bottom: 25px; 
+}
+
+.profile-info p {
+    margin: 12px 0;
+}
+
+.address-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;  
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.address-form p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.address-form input, .address-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+.address-form button {
+    background-color: #007BFF;  
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.address-form button:hover {
+    background-color: #0056b3;  
+}
+
+.address-section {
+    background-color: #f9f9f9;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ddd;
+    margin-bottom: 30px;
+}
+
+.address-section p {
+    font-size: 1.2rem;
+    margin: 12px 0;
+    color: #666;
+}
+
+.no-address {
+    font-size: 1.2rem;
+    color: #c0392b;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.address-button {
+    display: block;
+    width: 100%;
+    padding: 14px 22px;  
+    font-size: 1.2rem;
+    background-color: #d4af37;  
+    color: white;
+    border: none;
+    border-radius: 8px;  
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);  
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    outline: none;  
+    text-decoration: none;  
+}
+
+.address-button:hover {
+    background-color: #b68c28;  
+    transform: translateY(-4px);  
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-decoration: none; 
+}
+.udelete {
+    display: block;
+    width: 100%;
+    padding: 16px 24px;  
+    margin-top: 20px;  
+    font-size: 1.2rem;
+    background-color: #e74c3c;  
+    color: white;
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    outline: none;  
+    text-decoration: none;  
+}
+
+.udelete:focus, .udelete:hover {
+    text-decoration: none;  
+    outline: none;  
+    border: none; 
+}
+
+.order-summary-button {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;  
+    gap: 15px;  
+    flex-wrap: wrap; 
+}
+
+.order-summary-button a {
+    width: 32%;  
+    text-decoration: none;  
+}
+
+.section-heading {
+    font-size: 1.8rem; 
+    color: #333;
+    margin-top: 30px;
+    font-weight: 600;
+    border-bottom: 2px solid #d4af37;  
+    padding-bottom: 10px;
+}
+
+.no-address {
+    font-size: 1.1rem;
+    color: #e74c3c;
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+@media (max-width: 768px) {
+    .profile-container {
+        width: 100%;
+        padding: 25px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    .profile-info p, .address-section p {
+        font-size: 1.1rem;
+    }
+
+    .order-summary-button a {
+        width: 100%;  
+        margin-bottom: 15px;  
+    }
+
+    .order-summary-button a:last-child {
+        margin-bottom: 0; 
+    }
+
+    .address-button, .udelete {
+        font-size: 1rem;  
+        padding: 12px 20px; 
+    }
+}

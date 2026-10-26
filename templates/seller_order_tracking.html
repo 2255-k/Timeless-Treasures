@@ -1,0 +1,27 @@
+
+  <h2>Order Tracking</h2>
+  
+  {% if error_message %}
+    <p class="error-message">{{ error_message }}</p>
+  {% else %}
+    {% for order_with_item in orders_with_items %}
+      <div class="order-details">
+        <h3>Order ID: {{ order_with_item.order.id }}</h3>
+        <p><strong>Order Date:</strong> {{ order_with_item.order.order_date }}</p>
+        <p><strong>Status:</strong> {{ order_with_item.order_status }}</p>
+        
+        <h4>Items in this Order:</h4>
+        <ul>
+          {% for item in order_with_item.order_items %}
+            <li>
+              <strong>{{ item.product_name }}</strong> - Quantity: {{ item.product_quantity }} - Price: {{ item.total_amount }}
+            </li>
+          {% endfor %}
+        </ul>
+        
+      </div>
+    {% empty %}
+      <p>You have not sold any products yet.</p>
+    {% endfor %}
+  {% endif %}
+  

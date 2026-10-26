@@ -1,0 +1,76 @@
+{% load static %}
+{% include 'header.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/ordersummary.css">
+    <title>Order Summary</title>
+</head>
+<body>
+
+    <header>
+        <h1>Order Summary</h1>
+    </header>
+<div class="container">
+    <div class="order-list">
+        {% if orders %}
+            <h2>Your Orders</h2>
+            {% for order in orders %}
+                <div class="order">
+                    <h3>Order ID: {{ order.order_id }}</h3>
+
+                    <!-- Discount and Final Amount Display -->
+                    {% if order.discount_amount %}
+                        <p><strong>Discount Amount:</strong> ₹{{ order.discount_amount }}</p>
+                    {% endif %}
+    
+                    <p><strong>Shipping Charge:</strong> ₹{{ order.shipping_charge }}</p>
+
+                    <p><strong>Final Amount :</strong> ₹{{ order.final_amount }}</p>
+
+                    <p><strong>Payment Status:</strong> 
+                        <span class="order-status {% if order.payment_status == 'Paid' %}paid{% else %}pending{% endif %}">
+                            {{ order.payment_status }}
+                        </span>
+                    </p>
+
+                    {% if order.payment_status == "Paid" %}
+                        <p><strong>Payment Amount:</strong> ₹{{ order.payment_amount }}</p>
+                        <p><strong>Razorpay Order ID:</strong> {{ order.razorpay_order_id }}</p>
+                        <p><strong>Razorpay Payment ID:</strong> {{ order.razorpay_payment_id }}</p>
+                    {% endif %}
+
+                    <div class="order-items">
+                        <h4>Order Items:</h4>
+                        <ul>
+                            {% for item in order.order_items %}
+                                <li>
+                                    <strong>{{ item.product_name }}</strong>
+                                    <p>Quantity: {{ item.product_quantity }}</p>
+                                    <!-- <p><strong>Price:</strong> ₹{{ item.product_price }}</p>  Product Price -->
+                                    
+                                    {% if item.product_image %}
+                                        <div class="product-image">
+                                            <img src="{{ item.product_image }}" alt="{{ item.product_name }}" width="100">
+                                        </div>
+                                    {% else %}
+                                        <p>No image available</p>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>You have not placed any orders yet.</p>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
+
+{% include 'footer.html' %}

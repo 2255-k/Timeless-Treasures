@@ -1,0 +1,57 @@
+{% load static %}
+{% include 'header.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Shipping Address</title>
+    <link rel="stylesheet" href="/static/css/edit_address.css">
+    <style>
+
+    </style>
+</head>
+<body >
+
+<header>
+    <h1>Edit Shipping Address</h1>
+</header>
+
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="address">Address</label>
+            {{ form.address }}
+        </div>
+
+        <div class="form-group">
+            <label for="city">City</label>
+            {{ form.city }}
+        </div>
+
+        <div class="form-group">
+            <label for="postal_code">Postal Code</label>
+            {{ form.postal_code }}
+        </div>
+
+        <div class="form-group">
+            <label for="country">Country</label>
+            {{ form.country }}
+        </div>
+
+        <button type="submit" class="btn-primary">Save Changes</button>
+    </form>
+
+    <form method="GET" action="{% url 'checkout' %}">
+        <button type="submit" class="back-btn">Back to checkout</button>
+    </form>
+</div>
+
+</body>
+</html>
+
+
+{% include 'footer.html' %}

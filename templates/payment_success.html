@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Success</title>
+    <link rel="stylesheet" href="/static/css/paymentsuccess.css"> 
+</head>
+<body >
+    <header>
+        <h1></h1>
+    </header>
+<div style="padding-top: 50px;">
+<div class="container" >
+    <div class="order-summary">
+        <h2>Payment Successful</h2>
+        <p>Your order has been successfully placed! You can view your order details below:</p>
+
+    </div>
+
+    <footer>
+        <a href="{% url 'index' %}" class="btn">Go to Home</a>
+        <a href="{% url 'view_order' %}" class="btn">View Order Details</a>
+    </footer>
+</div>
+</div>
+</body>
+</html>
+
