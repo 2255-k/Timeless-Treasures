@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        node {
-            label ''
-            retries 2
-        }
-    }
+    agent any
 
     options {
         timestamps()
@@ -35,4 +30,24 @@ pipeline {
                         /tmp/venv/bin/python manage.py makemigrations --check --dry-run
                         /tmp/venv/bin/python manage.py test
                         /tmp/venv/bin/python manage.py collectstatic --noinput
+                      '
+                '''
+            }
+        }
 
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t timeless-treasures:${BUILD_NUMBER} .'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'SUCCESS: Django validation and Docker image build completed.'
+        }
+        failure {
+            echo 'FAILED: Check the Console Output to identify the failing stage.'
+        }
+    }
+}
