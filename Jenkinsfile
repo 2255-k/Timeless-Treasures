@@ -20,7 +20,7 @@ pipeline {
                     docker run --rm \
                       -e PYTHONDONTWRITEBYTECODE=1 \
                       -e PYTHONUNBUFFERED=1 \
-                      -v "$WORKSPACE:/app" \
+                      -v "/var/lib/docker/volumes/jenkins_home/_data/workspace/Timeless-Tressure:/app" \
                       -w /app \
                       python:3.12-slim \
                       sh -ec '
